@@ -32,14 +32,14 @@ jobs:
       - name: Docker Build and push
         run: |
           docker build -t k8s:latest .
-          docker tag k8s:latest *YOURDOCKERUSERNAME*/k8s:latest
+          docker tag k8s:latest ilyaselmi/k8s:latest
           docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
           docker push *YOURDOCKERUSERNAME*/k8s:latest
         env:
           DOCKER_CLI_ACI: 1
 
       - name: Image scan
-        run: trivy image *YOURDOCKERUSERNAME*/k8s:latest > trivyimage.txt
+        run: trivy image ilyaselmi/k8s:latest > trivyimage.txt
 
   deploy:
    needs: build-analyse-scan   
